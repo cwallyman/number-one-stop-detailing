@@ -1,4 +1,4 @@
-export const business = { name: '#1 Stop Detailing Shop LLC', phone: '717-615-7099', telephone: 'tel:+17176157099', email: 'detailing@example.com', address: '36 Manor Ave., Millersville, PA 17551', maps: 'https://www.google.com/maps/dir/?api=1&destination=36+Manor+Ave+Millersville+PA+17551' };
+export const business = { name: '#1 Stop Detailing Shop LLC', phone: '717-615-7099', telephone: 'tel:+17176157099', email: '1stopdetailingshop@gmail.com', address: '36 Manor Ave., Millersville, PA 17551', maps: 'https://www.google.com/maps/dir/?api=1&destination=36+Manor+Ave+Millersville+PA+17551' };
 export const services = [
  {name:'Full Detailing',description:'Interior and exterior vehicle detailing.',icon:'✧',detail:'A fresh perspective. Inside and out.'},
  {name:'Paint Correction',description:'Restore the appearance of paint by reducing visible imperfections.',icon:'◈',detail:'Bring your paint back into focus.'},

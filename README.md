@@ -42,19 +42,13 @@ gh repo create number-one-stop-detailing --public --source=. --push
 
 For a custom domain, set the workflow `VITE_BASE_PATH` to `/` and configure the domain in Pages settings. No remote repository or live Pages deployment is implied by this source code.
 
-## Enable real quote delivery
+## Quote requests through the customer's email app
 
-The default is **safe demo mode**: browser validation runs, but no form data leaves the page or is saved. Demo feedback explicitly says nothing was sent. Call-to-action links remain available for real inquiries.
+The form validates name, email and phone, then builds a prepopulated `mailto:` draft with all vehicle/service details. The customer must review the draft and tap Send in their email app. No form service, API keys or subscription is needed. The website does not send mail or confirm delivery.
 
-1. Replace `business.email` in `src/data.ts` with the real business email. `detailing@example.com` is only a placeholder; editing that value alone does not route submissions.
-2. Create a form at https://formspree.io and set its **recipient** in the Formspree dashboard to the real business email. Complete Formspree's verification and configure its spam/domain protections. Do not attempt to verify the example.com address.
-3. Add the public form ID (the last segment of `https://formspree.io/f/FORM_ID`) as `VITE_FORMSPREE_FORM_ID` in `.env.local` for local use, and as a GitHub repository **Actions variable** for deployment. Do not use a secret API key. The form ID is necessarily public.
-4. Rebuild/redeploy. Submit an authorized test inquiry, verify the success message, and confirm the actual email arrives in the correct mailbox. Check spam folders. Delivery must not be advertised as verified until this test succeeds.
-5. Test service rejection, offline behavior, and rate limits. Failed/uncertain requests show an error with a call option; they never show success. The in-flight lock prevents concurrent duplicates. A network timeout can leave delivery uncertain, so the error asks customers to call before retrying.
+Set `business.email` in `src/data.ts` to the real shop email, then rebuild/deploy. While that field remains `detailing@example.com`, the site shows a copyable draft and call instructions without opening an email addressed to the placeholder.
 
-Client validation, a honeypot, an in-flight lock, and service-side Formspree protection are included. Required fields: name, valid email, and phone number. Appointment dates are preferences, not bookings. Real submissions share contact/vehicle information with Formspree; review the provider's terms and privacy practices before launch.
-
-**Attachments are disabled intentionally.** Before enabling them, confirm the selected service plan supports secure uploads, configure limits/type validation and abuse controls on the service, update the request handling and customer instructions, and test real delivery. This site does not send attachments.
+An email app must be configured. A copyable draft remains on the page as a fallback, including if the device's mailto handler or URL length limit prevents opening a long message. Photos can be attached by the customer in their email app; browser file upload stays disabled. Data remains on the page until refresh/navigation and is not saved by the site. Appointment dates are preferences, not bookings.
 
 ## Edit content and gallery
 
@@ -67,4 +61,4 @@ Client validation, a honeypot, an in-flight lock, and service-side Formspree pro
 
 ## Remaining launch requirements
 
-Replace sample photographs with authorized business work; configure and verify a real Formspree recipient; authenticate GitHub, create/push the repository and enable Pages. No pricing, hours, reviews, certifications, warranties or business history were invented.
+Replace sample photographs with authorized business work; set the real business email and test a draft on customer devices; authenticate GitHub, create/push the repository and enable Pages. No pricing, hours, reviews, certifications, warranties or business history were invented.

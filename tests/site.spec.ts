@@ -15,11 +15,11 @@ test('navigation, imagery, contact links and accessible gallery',async({page},in
  expect(images.every(i=>i.ok)).toBeTruthy();expect(errors).toEqual([]);
  await page.screenshot({path:`test-results/${info.project.name}.png`,fullPage:true});
 });
-test('required fields and demo mode never send a request',async({page})=>{
+test('required fields and quote email draft',async({page})=>{
  let sent=0;page.on('request',r=>{if(r.url().includes('formspree.io'))sent++;});
- await page.goto('#contact');await page.getByRole('button',{name:'Send My Quote Request'}).click();
+ await page.goto('#contact');await page.getByRole('button',{name:'Prepare Quote Email'}).click();
  expect(await page.locator('input[name=name]').evaluate((e:HTMLInputElement)=>e.validity.valueMissing)).toBeTruthy();
  await page.getByLabel('Full name *').fill('Demo Customer');await page.getByLabel('Email address *').fill('test@example.com');await page.getByLabel('Phone number *').fill('717-555-0123');
- await page.getByRole('button',{name:'Send My Quote Request'}).click();await expect(page.getByRole('status')).toContainText('Nothing was sent or saved');expect(sent).toBe(0);await expect(page.locator('input[type=file]')).toBeDisabled();
+ await page.getByRole('button',{name:'Prepare Quote Email'}).click();await expect(page.getByLabel('Your quote email draft')).toHaveValue(/Full name: Demo Customer/);await expect(page.getByLabel('Your quote email draft')).toHaveValue(/Email: test@example.com/);expect(sent).toBe(0);await expect(page.locator('input[type=file]')).toBeDisabled();
 });
 test('service quote selects the right service',async({page})=>{await page.goto('');await page.getByRole('link',{name:'Request a quote for Ceramic Coating'}).click();await expect(page.getByLabel('Requested service')).toHaveValue('Ceramic Coating');});
